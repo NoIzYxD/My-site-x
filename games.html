@@ -1,118 +1,379 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="uk">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ігри, в які я граю</title>
+    <title>Практичний проект</title>
     <style>
+        @keyframes modalFadeOut {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-content {
+            animation: modalFadeIn 0.5s;
+            transition: opacity 0.3s, transform 0.3s;
+            will-change: opacity, transform;
+        }
+
+        /* Ефекти для елементів списку ігор */
+        .modal-content ul li {
+            transition: background 0.3s, color 0.3s, transform 0.3s;
+            padding: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            will-change: background, color, transform;
+        }
+
+        .modal-content ul li:hover {
+            background: #e3f2fd;
+            color: #1976d2;
+            transform: scale(1.07);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f4f8;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #f0f4f8, #c2e9fb);
             margin: 0;
             padding: 0;
         }
 
+        header {
+            background: #2196f3;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav {
+            background: #1976d2;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
         main {
-            max-width: 600px;
-            margin: 40px auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px #2196f344;
-            padding: 32px;
+            max-width: 800px;
+            margin: 40px auto 80px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(33, 150, 243, 0.08);
+            padding: 40px;
+        }
+
+        .hero-img {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 220px;
+            border-radius: 50%;
+            box-shadow: 0 2px 12px rgba(33, 150, 243, 0.15);
+            transition: transform 0.3s;
+        }
+
+        .hero-img:hover {
+            transform: scale(1.07) rotate(-2deg);
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #e3f2fd;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.08);
+            padding: 18px 24px;
+            flex: 1 1 180px;
+            min-width: 160px;
+            text-align: center;
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 24px rgba(33, 150, 243, 0.18);
         }
 
         h1 {
             color: #1976d2;
         }
 
-        ul {
-            font-size: 1.2em;
+        .form-section {
+            margin-top: 30px;
         }
 
-        a {
-            color: #2196f3;
-            text-decoration: none;
+        input,
+        textarea {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #90caf9;
+            width: 90%;
+            font-size: 1em;
         }
 
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-
-<body>
-    <main>
-        <h1>Ігри, в які я граю</h1>
-        <ul>
-            <li>Roblox</li>
-            <li>Minecraft</li>
-            <li>CS:GO</li>
-            <li>GTA V</li>
-            <li>Valorant</li>
-        </ul>
-        <a href="bochya.html">&#8592; Назад на головну</a>
-    </main>
-</body>
-
-=======
-<!DOCTYPE html>
-<html lang="uk">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ігри, в які я граю</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f0f4f8;
-            margin: 0;
-            padding: 0;
+        button {
+            padding: 10px 24px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #2196f3 60%, #64b5f6 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.08);
+            transition: background 0.3s, transform 0.2s;
         }
 
-        main {
-            max-width: 600px;
-            margin: 40px auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px #2196f344;
-            padding: 32px;
+        button:hover {
+            background: linear-gradient(90deg, #1976d2 60%, #2196f3 100%);
+            transform: scale(1.05);
         }
 
-        h1 {
-            color: #1976d2;
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
 
-        ul {
-            font-size: 1.2em;
+        button:hover {
+            background: #1976d2;
         }
 
-        a {
-            color: #2196f3;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
+        footer {
+            background: #2196f3;
+            color: white;
+            text-align: center;
+            padding: 18px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            box-shadow: 0 -2px 8px rgba(33, 150, 243, 0.08);
         }
     </style>
 </head>
 
 <body>
+
+
+    <header>
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&h=400&facepad=2"
+            alt="Гарний сайт" class="hero-img">
+        <h1>Цей сайт зроблений як практичний проект</h1>
+    </header>
+    <nav>
+        <a href="#about">Про сайт</a>
+        <a href="#hobby">Хобі</a>
+        <a href="#contact">Зворотній зв'язок</a>
+    </nav>
     <main>
-        <h1>Ігри, в які я граю</h1>
-        <ul>
-            <li>Roblox</li>
-            <li>Minecraft</li>
-            <li>CS:GO</li>
-            <li>GTA V</li>
-            <li>Valorant</li>
-        </ul>
-        <a href="bochya.html">&#8592; Назад на головну</a>
+        <section id="about">
+            <h2>Про сайт</h2>
+            <p>Цей сайт створений для практики HTML, CSS та JavaScript. Тут є сучасний дизайн, анімації та інтерактивні
+                елементи.</p>
+        </section>
+        <section id="hobby">
+            <h2>Мої хобі</h2>
+            <div class="cards">
+                <div class="card" id="devCard" style="cursor:pointer;">
+                    Веб-розробка
+                </div>
+                <div class="card" id="gamesCard" style="cursor:pointer;">Ігри</div>
+                <div class="card" id="musicCard" style="cursor:pointer;">Музика</div>
+                <div class="card">Творчість</div>
+            </div>
+        </section>
+        <section id="contact" class="form-section">
+            <!-- Модальне вікно для веб-розробки -->
+            <div id="devModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close" id="closeDevModal">&times;</span>
+                    <h2>Веб-розробка</h2>
+                    <ul>
+                        <li onclick="window.open('https://html5book.ru/html-html5/','_blank')" style="cursor:pointer;">
+                            HTML</li>
+                        <li onclick="window.open('https://css-tricks.com/','_blank')" style="cursor:pointer;">CSS</li>
+                        <li onclick="window.open('https://javascript.info/','_blank')" style="cursor:pointer;">
+                            JavaScript</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Модальне вікно для музики -->
+            <div id="musicModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close" id="closeMusicModal">&times;</span>
+                    <h2>Музика, яку я слухаю</h2>
+                    <ul>
+                        <li onclick="window.open('https://www.youtube.com/@ImagineDragons','_blank')"
+                            style="cursor:pointer;">Imagine Dragons</li>
+                        <li onclick="window.open('https://www.youtube.com/@ManeskinOfficial','_blank')"
+                            style="cursor:pointer;">Maneskin</li>
+                        <li onclick="window.open('https://www.youtube.com/@dzidzio','_blank')" style="cursor:pointer;">
+                            DZIDZIO</li>
+                        <li onclick="window.open('https://www.youtube.com/@ChrisGreyMusic','_blank')"
+                            style="cursor:pointer;">Chris Grey</li>
+                        <li onclick="window.open('https://www.youtube.com/@LadyGaga','_blank')" style="cursor:pointer;">
+                            Lady Gaga</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Модальне вікно -->
+            <div id="gamesModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close" id="closeModal">&times;</span>
+                    <h2>Ігри, в які я граю</h2>
+                    <ul>
+                        <li onclick="window.open('https://www.roblox.com/','_blank')" style="cursor:pointer;">Roblox
+                        </li>
+                        <li onclick="window.open('https://store.steampowered.com/app/578080/PLAYERUNKNOWNS_BATTLEGROUNDS/','_blank')"
+                            style="cursor:pointer;">PLAYERUNKNOWN'S BATTLEGROUNDS</li>
+                        <li onclick="window.open('https://store.steampowered.com/app/730/CounterStrike_2/','_blank')"
+                            style="cursor:pointer;">Counter-Strike 2</li>
+                        <li onclick="window.open('https://store.steampowered.com/app/1465360/SnowRunner/','_blank')"
+                            style="cursor:pointer;">SnowRunner</li>
+                        <li onclick="window.open('https://store.steampowered.com/app/526870/Satisfactory/','_blank')"
+                            style="cursor:pointer;">Satisfactory</li>
+                    </ul>
+                </div>
+            </div>
+            <h2>Зворотній зв'язок</h2>
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="Ваше ім'я" required><br>
+                <input type="email" id="email" placeholder="Ваш email" required><br>
+                <textarea id="message" placeholder="Ваше повідомлення" rows="3" required></textarea><br>
+                <button type="submit">Відправити</button>
+            </form>
+            <p id="response" style="color:green; font-weight:bold;"></p>
+        </section>
     </main>
+    <footer>
+        &copy; 2025 Мій перший сайт. Всі права захищені. Автор-NoIzY
+    </footer>
+    <script>
+        // Модальне вікно для веб-розробки
+        let devModalOpen = false;
+        const devCard = document.getElementById('devCard');
+        const devModal = document.getElementById('devModal');
+        const closeDevModal = document.getElementById('closeDevModal');
+        function closeAllModals(fast = true) {
+            // Закриваємо всі модальні вікна
+            const duration = fast ? 0.2 : 0.5;
+            [gamesModal, musicModal, devModal].forEach(function (modal) {
+                if (modal && modal.style.display === 'block') {
+                    const modalContent = modal.querySelector('.modal-content');
+                    modalContent.style.animation = `modalFadeOut ${duration}s`;
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, duration * 1000);
+                }
+            });
+            modalOpen = false;
+            musicModalOpen = false;
+            devModalOpen = false;
+        }
+
+        devCard.onclick = function () {
+            closeAllModals(true);
+            const modalContent = devModal.querySelector('.modal-content');
+            devModal.style.display = 'block';
+            modalContent.style.animation = 'none';
+            void modalContent.offsetWidth;
+            modalContent.style.animation = 'modalFadeIn 0.5s';
+            devModalOpen = true;
+        };
+        closeDevModal.onclick = function () {
+            closeAllModals(false);
+        };
+        window.addEventListener('click', function (event) {
+            if (event.target === devModal) {
+                closeAllModals(false);
+            }
+        });
+        // Модальне вікно для музики
+        let musicModalOpen = false;
+        const musicCard = document.getElementById('musicCard');
+        const musicModal = document.getElementById('musicModal');
+        const closeMusicModal = document.getElementById('closeMusicModal');
+        musicCard.onclick = function () {
+            closeAllModals(true);
+            const modalContent = musicModal.querySelector('.modal-content');
+            musicModal.style.display = 'block';
+            modalContent.style.animation = 'none';
+            void modalContent.offsetWidth;
+            modalContent.style.animation = 'modalFadeIn 0.5s';
+            musicModalOpen = true;
+        };
+        closeMusicModal.onclick = function () {
+            closeAllModals(false);
+        };
+        window.addEventListener('click', function (event) {
+            if (event.target === musicModal) {
+                closeAllModals(false);
+            }
+        });
+        // Модальне вікно для ігор
+        const gamesCard = document.getElementById('gamesCard');
+        const gamesModal = document.getElementById('gamesModal');
+        const closeModal = document.getElementById('closeModal');
+        let modalOpen = false;
+        gamesCard.onclick = function () {
+            closeAllModals(true);
+            const modalContent = gamesModal.querySelector('.modal-content');
+            gamesModal.style.display = 'block';
+            modalContent.style.animation = 'none';
+            void modalContent.offsetWidth;
+            modalContent.style.animation = 'modalFadeIn 0.5s';
+            modalOpen = true;
+        };
+        closeModal.onclick = function () {
+            closeAllModals(false);
+        };
+        window.onclick = function (event) {
+            if (event.target === gamesModal) {
+                closeAllModals(false);
+            }
+        };
+        document.getElementById('contactForm').onsubmit = function (e) {
+            e.preventDefault();
+            document.getElementById('response').textContent = 'Дякуємо за повідомлення, ' + document.getElementById('name').value + '!';
+            document.getElementById('contactForm').reset();
+        };
+    </script>
+
 </body>
 
->>>>>>> 42a6a3fdeb687e59a382ea24a48daad2ae9533bd
 </html>
