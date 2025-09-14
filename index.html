@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мій перший сайт</title>
+    <title>Практичний проект</title>
     <style>
         @keyframes modalFadeOut {
             0% {
@@ -14,15 +14,14 @@
 
             100% {
                 opacity: 0;
-                transform: scale(0.8) translateY(40px);
+                transform: scale(0.95) translateY(20px);
             }
         }
 
-        /* Анімація для модального вікна */
         @keyframes modalFadeIn {
             0% {
                 opacity: 0;
-                transform: scale(0.8) translateY(40px);
+                transform: scale(0.95) translateY(20px);
             }
 
             100% {
@@ -33,6 +32,8 @@
 
         .modal-content {
             animation: modalFadeIn 0.5s;
+            transition: opacity 0.3s, transform 0.3s;
+            will-change: opacity, transform;
         }
 
         /* Ефекти для елементів списку ігор */
@@ -41,6 +42,7 @@
             padding: 8px 0;
             border-radius: 8px;
             cursor: pointer;
+            will-change: background, color, transform;
         }
 
         .modal-content ul li:hover {
@@ -191,7 +193,7 @@
     <header>
         <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&h=400&facepad=2"
             alt="Гарний сайт" class="hero-img">
-        <h1>Це мій перший сайт</h1>
+        <h1>Цей сайт зроблений як практичний проект</h1>
     </header>
     <nav>
         <a href="#about">Про сайт</a>
@@ -207,24 +209,45 @@
         <section id="hobby">
             <h2>Мої хобі</h2>
             <div class="cards">
-                <div class="card">Веб-розробка</div>
+                <div class="card" id="devCard" style="cursor:pointer;">
+                    Веб-розробка
+                </div>
                 <div class="card" id="gamesCard" style="cursor:pointer;">Ігри</div>
                 <div class="card" id="musicCard" style="cursor:pointer;">Музика</div>
                 <div class="card">Творчість</div>
             </div>
         </section>
         <section id="contact" class="form-section">
+            <!-- Модальне вікно для веб-розробки -->
+            <div id="devModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close" id="closeDevModal">&times;</span>
+                    <h2>Веб-розробка</h2>
+                    <ul>
+                        <li onclick="window.open('https://html5book.ru/html-html5/','_blank')" style="cursor:pointer;">
+                            HTML</li>
+                        <li onclick="window.open('https://css-tricks.com/','_blank')" style="cursor:pointer;">CSS</li>
+                        <li onclick="window.open('https://javascript.info/','_blank')" style="cursor:pointer;">
+                            JavaScript</li>
+                    </ul>
+                </div>
+            </div>
             <!-- Модальне вікно для музики -->
             <div id="musicModal" class="modal" style="display:none;">
                 <div class="modal-content">
                     <span class="close" id="closeMusicModal">&times;</span>
                     <h2>Музика, яку я слухаю</h2>
                     <ul>
-                        <li>Imagine Dragons</li>
-                        <li>Maneskin</li>
-                        <li>DZIDZIO</li>
-                        <li>Chris Grey</li>
-                        <li>Lady Gaga</li>
+                        <li onclick="window.open('https://www.youtube.com/@ImagineDragons','_blank')"
+                            style="cursor:pointer;">Imagine Dragons</li>
+                        <li onclick="window.open('https://www.youtube.com/@ManeskinOfficial','_blank')"
+                            style="cursor:pointer;">Maneskin</li>
+                        <li onclick="window.open('https://www.youtube.com/@dzidzio','_blank')" style="cursor:pointer;">
+                            DZIDZIO</li>
+                        <li onclick="window.open('https://www.youtube.com/@ChrisGreyMusic','_blank')"
+                            style="cursor:pointer;">Chris Grey</li>
+                        <li onclick="window.open('https://www.youtube.com/@LadyGaga','_blank')" style="cursor:pointer;">
+                            Lady Gaga</li>
                     </ul>
                 </div>
             </div>
@@ -234,11 +257,16 @@
                     <span class="close" id="closeModal">&times;</span>
                     <h2>Ігри, в які я граю</h2>
                     <ul>
-                        <li>Roblox</li>
-                        <li>PLAYERUNKNOWN'S BATTLEGROUNDS</li>
-                        <li>CS:GO</li>
-                        <li>SnowRunner</li>
-                        <li>Satisfactory</li>
+                        <li onclick="window.open('https://www.roblox.com/','_blank')" style="cursor:pointer;">Roblox
+                        </li>
+                        <li onclick="window.open('https://store.steampowered.com/app/578080/PLAYERUNKNOWNS_BATTLEGROUNDS/','_blank')"
+                            style="cursor:pointer;">PLAYERUNKNOWN'S BATTLEGROUNDS</li>
+                        <li onclick="window.open('https://store.steampowered.com/app/730/CounterStrike_2/','_blank')"
+                            style="cursor:pointer;">Counter-Strike 2</li>
+                        <li onclick="window.open('https://store.steampowered.com/app/1465360/SnowRunner/','_blank')"
+                            style="cursor:pointer;">SnowRunner</li>
+                        <li onclick="window.open('https://store.steampowered.com/app/526870/Satisfactory/','_blank')"
+                            style="cursor:pointer;">Satisfactory</li>
                     </ul>
                 </div>
             </div>
@@ -253,46 +281,68 @@
         </section>
     </main>
     <footer>
-        &copy; 2025 Мій перший сайт. Всі права захищені. NoIzY
+        &copy; 2025 Мій перший сайт. Всі права захищені. Автор-NoIzY
     </footer>
     <script>
+        // Модальне вікно для веб-розробки
+        let devModalOpen = false;
+        const devCard = document.getElementById('devCard');
+        const devModal = document.getElementById('devModal');
+        const closeDevModal = document.getElementById('closeDevModal');
+        function closeAllModals(fast = true) {
+            // Закриваємо всі модальні вікна
+            const duration = fast ? 0.2 : 0.5;
+            [gamesModal, musicModal, devModal].forEach(function (modal) {
+                if (modal && modal.style.display === 'block') {
+                    const modalContent = modal.querySelector('.modal-content');
+                    modalContent.style.animation = `modalFadeOut ${duration}s`;
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, duration * 1000);
+                }
+            });
+            modalOpen = false;
+            musicModalOpen = false;
+            devModalOpen = false;
+        }
+
+        devCard.onclick = function () {
+            closeAllModals(true);
+            const modalContent = devModal.querySelector('.modal-content');
+            devModal.style.display = 'block';
+            modalContent.style.animation = 'none';
+            void modalContent.offsetWidth;
+            modalContent.style.animation = 'modalFadeIn 0.5s';
+            devModalOpen = true;
+        };
+        closeDevModal.onclick = function () {
+            closeAllModals(false);
+        };
+        window.addEventListener('click', function (event) {
+            if (event.target === devModal) {
+                closeAllModals(false);
+            }
+        });
         // Модальне вікно для музики
         let musicModalOpen = false;
         const musicCard = document.getElementById('musicCard');
         const musicModal = document.getElementById('musicModal');
         const closeMusicModal = document.getElementById('closeMusicModal');
         musicCard.onclick = function () {
+            closeAllModals(true);
             const modalContent = musicModal.querySelector('.modal-content');
-            if (!musicModalOpen) {
-                musicModal.style.display = 'block';
-                modalContent.style.animation = 'none';
-                void modalContent.offsetWidth;
-                modalContent.style.animation = 'modalFadeIn 0.5s';
-                musicModalOpen = true;
-            } else {
-                modalContent.style.animation = 'modalFadeOut 0.5s';
-                setTimeout(() => {
-                    musicModal.style.display = 'none';
-                    musicModalOpen = false;
-                }, 480);
-            }
+            musicModal.style.display = 'block';
+            modalContent.style.animation = 'none';
+            void modalContent.offsetWidth;
+            modalContent.style.animation = 'modalFadeIn 0.5s';
+            musicModalOpen = true;
         };
         closeMusicModal.onclick = function () {
-            const modalContent = musicModal.querySelector('.modal-content');
-            modalContent.style.animation = 'modalFadeOut 0.5s';
-            setTimeout(() => {
-                musicModal.style.display = 'none';
-                musicModalOpen = false;
-            }, 480);
+            closeAllModals(false);
         };
         window.addEventListener('click', function (event) {
             if (event.target === musicModal) {
-                const modalContent = musicModal.querySelector('.modal-content');
-                modalContent.style.animation = 'modalFadeOut 0.5s';
-                setTimeout(() => {
-                    musicModal.style.display = 'none';
-                    musicModalOpen = false;
-                }, 480);
+                closeAllModals(false);
             }
         });
         // Модальне вікно для ігор
@@ -301,37 +351,20 @@
         const closeModal = document.getElementById('closeModal');
         let modalOpen = false;
         gamesCard.onclick = function () {
-            const modalContent = document.querySelector('.modal-content');
-            if (!modalOpen) {
-                gamesModal.style.display = 'block';
-                modalContent.style.animation = 'none';
-                void modalContent.offsetWidth;
-                modalContent.style.animation = 'modalFadeIn 0.5s';
-                modalOpen = true;
-            } else {
-                modalContent.style.animation = 'modalFadeOut 0.5s';
-                setTimeout(() => {
-                    gamesModal.style.display = 'none';
-                    modalOpen = false;
-                }, 480);
-            }
+            closeAllModals(true);
+            const modalContent = gamesModal.querySelector('.modal-content');
+            gamesModal.style.display = 'block';
+            modalContent.style.animation = 'none';
+            void modalContent.offsetWidth;
+            modalContent.style.animation = 'modalFadeIn 0.5s';
+            modalOpen = true;
         };
         closeModal.onclick = function () {
-            const modalContent = document.querySelector('.modal-content');
-            modalContent.style.animation = 'modalFadeOut 0.5s';
-            setTimeout(() => {
-                gamesModal.style.display = 'none';
-                modalOpen = false;
-            }, 480);
+            closeAllModals(false);
         };
         window.onclick = function (event) {
             if (event.target === gamesModal) {
-                const modalContent = document.querySelector('.modal-content');
-                modalContent.style.animation = 'modalFadeOut 0.5s';
-                setTimeout(() => {
-                    gamesModal.style.display = 'none';
-                    modalOpen = false;
-                }, 480);
+                closeAllModals(false);
             }
         };
         document.getElementById('contactForm').onsubmit = function (e) {
